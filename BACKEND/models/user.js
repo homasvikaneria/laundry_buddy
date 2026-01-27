@@ -1,61 +1,73 @@
+// BACKEND/models/user.js
 const { Schema, model } = require('mongoose');
-const { type } = require('os');
 
 const userSchema = new Schema(
   {
     name: {
       type: String,
       required: true,
+      trim: true,
     },
+
     email: {
       type: String,
       required: true,
-      unique: true, // Ensure unique email
-      match: [/\S+@\S+\.\S+/, 'Please use a valid email address'], // Email format validation
+      unique: true,
+      lowercase: true,
+      match: [/\S+@\S+\.\S+/, 'Please use a valid email address'],
     },
+
     phoneNumber: {
       type: String,
-      required: true,
-      unique: true, // Ensure unique phone number
+      required: function () {
+        return this.role === 'user';
+      },
     },
+
     buildingName: {
       type: String,
-      required: true,
+      required: function () {
+        return this.role === 'user';
+      },
     },
+
     roomNumber: {
       type: String,
-      required: true,
+      required: function () {
+        return this.role === 'user';
+      },
     },
+
     bagNumber: {
       type: String,
-      required: true,
+      required: function () {
+        return this.role === 'user';
+      },
     },
+
     password: {
       type: String,
       required: true,
-      minlength: 6, // Minimum password length
+      minlength: 6,
+      select: false, // important for security
     },
+
     role: {
       type: String,
-      enum : ['admin', 'user', 'worker'],
-      default: "user"
+      enum: ['admin', 'user', 'worker'],
+      default: 'user',
     },
+
     address: {
       type: String,
-      default : " ",
+      default: '',
     },
-    resetPasswordToken: {
-      type: String,
-    },
-    resetPasswordExpires: {
-      type:Date,
-    },
+
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
   },
   {
-    timestamps: true, // Automatically adds createdAt and updatedAt
-  },
-  {
-    collection: 'users', // Ensure it uses the 'users' collection in the DB
+    timestamps: true,
   }
 );
 
