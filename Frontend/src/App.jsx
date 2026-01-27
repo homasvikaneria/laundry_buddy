@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Link, BrowserRouter } from 'react-router-dom';
+// Frontend/src/App.jsx
+import { Routes, Route } from 'react-router-dom'; // Removed BrowserRouter import
 import './App.css'
 import RoleSelector from './Component/Roleselector/Roleselector.jsx'
 import Dashboard from './Component/User/Dashboard.jsx';
@@ -16,36 +17,36 @@ import Complaint from './Component/User/Complaint-Form/ComplaintForm.jsx';
 import ComplaintFormSuccess from './Component/User/Complaint-Form/ComplaintFormSuccess.jsx';
 import OrderManagement from './Component/Worker/OrdersManagement/OrderManagement.jsx';
 import Stock from './Component/Worker/Stock/Stock.jsx';
-
+import AdminRoutes from "./Component/Admin/Routes/AdminRoutes";
 
 function App() {
-
-
   return (
     <>
-    <BrowserRouter>
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/registration" element={<Registration />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/reset-password/:token" element={<ResetPassword />} />
-    <Route index element={<div className='bg-softBlue min-h-screen'><RoleSelector /></div>} />
-    <Route path="/user/userdashboard" element={<div className="bg-softBlue min-h-screen"> <Dashboard /></div>}  />    
-    <Route path="/user/order-history" element={<div className="bg-historybg min-h-screen "> <Orderhistory /></div>}  />    
-    <Route path="/user/submit-order" element={<div className="bg-historybg min-h-screen "> <Submitorder /></div>}  />    
-    <Route path="/user/submit-order/success" element={<div className=" bg-gray-50 min-h-screen "> <OrderConfirmation /></div>}  />    
-    <Route path="/user/daily-rush" element={<div className=" bg-gray-50 min-h-screen "> <Dailyrush /></div>}  />    
-    <Route path="/user/profile" element={<div className="bg-softBlue min-h-screen "> <Profile /></div>}  />    
-    <Route path="/user/complaint" element={<div className="bg-softBlue min-h-screen "> <Complaint /></div>}  />    
-    <Route path="/user/complaint/success" element={<div className="bg-softBlue min-h-screen "> <ComplaintFormSuccess /></div>}  />   
+      {/* Removed <BrowserRouter> here because it is likely in main.jsx */}
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/registration" element={<Registration />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route index element={<div className='bg-softBlue min-h-screen'><RoleSelector /></div>} />
+          <Route path="/user/userdashboard" element={<div className="bg-softBlue min-h-screen"> <Dashboard /></div>} />
+          <Route path="/user/order-history" element={<div className="bg-historybg min-h-screen "> <Orderhistory /></div>} />
+          <Route path="/user/submit-order" element={<div className="bg-historybg min-h-screen "> <Submitorder /></div>} />
+          <Route path="/user/submit-order/success" element={<div className=" bg-gray-50 min-h-screen "> <OrderConfirmation /></div>} />
+          <Route path="/user/daily-rush" element={<div className=" bg-gray-50 min-h-screen "> <Dailyrush /></div>} />
+          <Route path="/user/profile" element={<div className="bg-softBlue min-h-screen "> <Profile /></div>} />
+          <Route path="/user/complaint" element={<div className="bg-softBlue min-h-screen "> <Complaint /></div>} />
+          <Route path="/user/complaint/success" element={<div className="bg-softBlue min-h-screen "> <ComplaintFormSuccess /></div>} />
 
+          {/* worker starts  */}
+          <Route path="/workerdashboard" element={<WorkerDashbaord />} />
+          <Route path="/worker/orders" element={<OrderManagement />} />
+          <Route path="/stock" element={<Stock />} />
 
-    {/* worker starts  */}
-    <Route path="/workerdashboard" element={ <WorkerDashbaord /> } />  
-    <Route path="/worker/orders" element={ <OrderManagement /> } />
-    <Route path="/stock" element={ <Stock /> } />  
-    </Routes>
-    </BrowserRouter>
+          <Route path="/admin/*" element={<AdminRoutes />} />
+
+        </Routes>
+      {/* Removed </BrowserRouter> */}
     </>
   )
 }

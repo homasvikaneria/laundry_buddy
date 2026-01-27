@@ -1,3 +1,4 @@
+// Frontend/src/Component/User/Login.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -29,15 +30,15 @@ const Login = () => {
       setSuccess(`Welcome back, ${response.data.name}!`); // Set success message
       console.log("Login successful:", response.data);
 
-      if(response.status===200){
-      
+      if (response.status === 200) {
 
-          localStorage.setItem("token",response.data.token);
-          localStorage.setItem("role",response.data.role);
-          localStorage.setItem("userId",response.data.userId);
-        
+
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("role", response.data.role);
+        localStorage.setItem("userId", response.data.userId);
+
       }
-     
+
 
       if (response.status === 200 && response.data.role === "user") {
         //navigate the user to dashbaord page
@@ -50,6 +51,14 @@ const Login = () => {
           navigate("/workerdashboard");
         }, 2000);
       }
+      else if (response.status === 200 && response.data.role === "admin") {
+        // store admin-specific token
+        localStorage.setItem("adminToken", response.data.token);
+
+        setTimeout(() => {
+          navigate("/admin/dashboard");
+        }, 2000);
+      }
     } catch (error) {
       setSuccess("")
       // Handle specific error messages from the API
@@ -58,7 +67,7 @@ const Login = () => {
       } else {
         setError("An error occurred. Please try again."); // Generic error message
       }
-    }finally{
+    } finally {
       setLoading(false)
     }
   };
@@ -133,14 +142,13 @@ const Login = () => {
 
           {/* Sign In Button */}
           <button
-      type="submit"
-      className={`w-full py-2 text-white rounded-lg transition-all ${
-        loading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
-      }`}
-      disabled={loading}
-    >
-      {loading ? 'Signing in...' : 'Sign in'}
-    </button>
+            type="submit"
+            className={`w-full py-2 text-white rounded-lg transition-all ${loading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
+              }`}
+            disabled={loading}
+          >
+            {loading ? 'Signing in...' : 'Sign in'}
+          </button>
         </form>
 
         {/* Forgot Password Link */}

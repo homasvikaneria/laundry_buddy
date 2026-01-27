@@ -1,3 +1,4 @@
+// Frontend/src/Component/Worker/Stock/Stock.jsx
 import React, { useEffect, useState } from 'react';
 import Navbar from '../Navbar/Navbar';
 import LoaderM from '../../../assets/loader/loader';
