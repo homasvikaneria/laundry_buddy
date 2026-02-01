@@ -1,12 +1,23 @@
-// Frontend/src/Component/Admin/Pages/AdminDashboard.jsx
-import React from 'react'
+import React from "react";
+import SummaryCards from "./SummaryCards";
+import CollegeGrid from "./CollegeGrid";
 
 const AdminDashboard = () => {
   return (
-    <div>
-      hii
-    </div>
-  )
-}
+    <div className="p-6">
+      
+      {/* Page Title */}
+      <h1 className="text-2xl font-bold mb-4">
+        College Locations
+      </h1>
 
-export default AdminDashboard
+      {/* Summary Cards */}
+      <SummaryCards />
+
+      {/* College Grid */}
+      <CollegeGrid />
+    </div>
+  );
+};
+
+export default AdminDashboard;
